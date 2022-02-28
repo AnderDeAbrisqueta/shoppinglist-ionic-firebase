@@ -1,0 +1,7 @@
+{
+  "name": "shoppinglist-ionic-firebase",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
