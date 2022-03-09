@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "shopping-list-75798": {
+      "hosting": {
+        "app": [
+          "shopping-list-75798"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "shopping-list-75798"
+  }
+}

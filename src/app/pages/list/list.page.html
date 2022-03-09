@@ -1,0 +1,30 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="end">
+      <ion-menu-button menu="main-menu"></ion-menu-button>
+    </ion-buttons>
+    <ion-title><ion-icon name="blank"></ion-icon> Lista de la compra</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-chip *ngFor="let item of items | async">
+    <ion-avatar>
+      <img [src]="item.imageUrl" />
+    </ion-avatar>
+    <ion-label class="text capitalize"
+      >{{ item.name }} <strong>{{ item.quantity }}</strong></ion-label
+    >
+    <span title="Editar elemento" (click)="goEditItem(item.itemId)">
+      <ion-icon name="pencil"></ion-icon>
+    </span>
+    <span title="Borrar elemento" (click)="itemService.deleteItem(item.itemId)">
+      <ion-icon name="close-circle" color="danger"></ion-icon>
+    </span>
+  </ion-chip>
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="addItem()" color="success">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>

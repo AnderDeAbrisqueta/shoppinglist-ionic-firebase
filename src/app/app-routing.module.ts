@@ -1,16 +1,45 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { AuthGuard, redirectUnauthorizedTo, redirectLoggedInTo } from '@angular/fire/auth-guard';
+
+const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['login']);
+const redirectLoggedInToList = () => redirectLoggedInTo(['list']);
 
 const routes: Routes = [
   {
-    path: 'home',
-    loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)
-  },
-  {
     path: '',
-    redirectTo: 'home',
+    redirectTo: 'list',
     pathMatch: 'full'
   },
+  {
+    path: 'list',
+    loadChildren: () => import('./pages/list/list.module').then( m => m.ListPageModule), canActivate: [AuthGuard], data: {authGuardPipe: redirectUnauthorizedToLogin}
+  },
+  {
+    path: 'create-item',
+    loadChildren: () => import('./pages/form/form.module').then( m => m.FormPageModule), canActivate: [AuthGuard], data: {authGuardPipe: redirectUnauthorizedToLogin}
+  },
+  {
+    path: 'edit-item/:id',
+    loadChildren: () => import('./pages/form/form.module').then( m => m.FormPageModule), canActivate: [AuthGuard], data: {authGuardPipe: redirectUnauthorizedToLogin}
+  },
+  {
+    path: 'login',
+    loadChildren: () => import('./pages/login/login.module').then( m => m.LoginPageModule), canActivate: [AuthGuard], data: {authGuardPipe: redirectLoggedInToList}
+  },
+  {
+    path: 'register',
+    loadChildren: () => import('./pages/register/register.module').then( m => m.RegisterPageModule)
+  },
+  {
+    path: 'reset-password',
+    loadChildren: () => import('./pages/reset-password/reset-password.module').then( m => m.ResetPasswordPageModule)
+  },
+  {
+    path: '**',
+    redirectTo: 'list',
+    pathMatch: 'full'
+    },
 ];
 
 @NgModule({
